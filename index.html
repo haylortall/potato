@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>i love potatoes</title>
+
+  <meta property="og:title" content="i love potatoes">
+  <meta property="og:description" content="a deeply important website">
+  <meta property="og:image" content="preview.png">
+  <meta property="og:type" content="website">
+
+  <style>
+    :root {
+      --bg: #fff8ef;
+      --text: #2f241d;
+      --accent: #ff8fb1;
+      --accent-2: #ffd166;
+      --card: #fffdf9;
+      --border: #2f241d;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      overflow-x: hidden;
+    }
+
+    .wrap {
+      width: min(680px, calc(100% - 32px));
+      text-align: center;
+      padding: 28px 20px 40px;
+    }
+
+    h1 {
+      font-size: clamp(2.6rem, 8vw, 5.5rem);
+      line-height: 0.95;
+      margin: 0 0 12px;
+      letter-spacing: -0.04em;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      margin-bottom: 22px;
+    }
+
+    .potato {
+      font-size: clamp(5rem, 20vw, 9rem);
+      display: inline-block;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 140ms ease;
+      filter: drop-shadow(0 6px 0 rgba(47, 36, 29, 0.12));
+    }
+
+    .potato:hover { transform: rotate(-6deg) scale(1.04); }
+    .potato:active { transform: rotate(6deg) scale(0.98); }
+
+    .card {
+      margin: 24px auto 0;
+      max-width: 460px;
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 24px;
+      padding: 18px 16px;
+      box-shadow: 8px 8px 0 var(--accent-2);
+    }
+
+    .line {
+      font-size: 1.2rem;
+      min-height: 1.6em;
+      margin-bottom: 12px;
+    }
+
+    button {
+      appearance: none;
+      border: 2px solid var(--border);
+      background: var(--accent);
+      color: var(--text);
+      font: inherit;
+      font-size: 1rem;
+      padding: 10px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 4px 0 rgba(47, 36, 29, 0.18);
+    }
+
+    button:hover { transform: translateY(-1px); }
+    button:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(47, 36, 29, 0.18); }
+
+    .tiny {
+      margin-top: 18px;
+      font-size: 0.92rem;
+      opacity: 0.8;
+    }
+
+    .floaty {
+      position: fixed;
+      pointer-events: none;
+      animation: drift 3.5s linear forwards;
+      font-size: 1.5rem;
+      z-index: 20;
+    }
+
+    @keyframes drift {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-160px) rotate(22deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>i love potatoes</h1>
+    <p class="subtitle">a deeply important website</p>
+
+    <div class="potato" id="potato" aria-label="potato" title="click the potato">🥔</div>
+
+    <section class="card">
+      <div class="line" id="line">potatoes are good</div>
+      <button id="btn">tell me more</button>
+    </section>
+
+    <p class="tiny">made with sincerity and starch ♡ taylor</p>
+  </main>
+
+  <script>
+    const thoughts = [
+      "potatoes are good",
+      "if you're reading this you love potatoes",
+      "potato said keep going",
+      "hot potato",
+      "spicy potato",
+      "you must really love potatoes",
+      "some potatoes deserve more attention",
+      "strong potato performance metrics",
+      "this appears to be a high-quality potato",
+      "continued potato engagement is recommended",
+      "potato quality appears consistent",
+      "baseline potato standards have been met",
+      "potato integrity remains intact",
+      "this falls within acceptable potato parameters",
+      "no immediate concerns regarding the potato",
+      "potato condition has been noted",
+      "potato characteristics are above average",
+      "continued observation of the potato is advised",
+      "this potato warrants further attention",
+      "additional potato interaction may be beneficial",
+      "the potato speaks for itself",
+      "full potato disclosure not yet requested",
+      "further potato review is pending"
+    ];
+
+    const line = document.getElementById('line');
+    const btn = document.getElementById('btn');
+    const potato = document.getElementById('potato');
+
+    let currentIndex = 0;
+
+    function nextThought() {
+      currentIndex = (currentIndex + 1) % thoughts.length;
+      line.textContent = thoughts[currentIndex];
+    }
+
+    function sparkle(x, y) {
+      const bits = ["🥔", "✨", "♡", "!", "★"];
+      for (let i = 0; i < 6; i++) {
+        const el = document.createElement('div');
+        el.className = 'floaty';
+        el.textContent = bits[Math.floor(Math.random() * bits.length)];
+        el.style.left = `${x + (Math.random() * 80 - 40)}px`;
+        el.style.top = `${y + (Math.random() * 30 - 15)}px`;
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 3500);
+      }
+    }
+
+    btn.addEventListener('click', () => {
+      nextThought();
+      sparkle(window.innerWidth / 2, window.innerHeight / 2 + 40);
+    });
+
+    potato.addEventListener('click', (e) => {
+      nextThought();
+      sparkle(e.clientX, e.clientY);
+    });
+  </script>
+</body>
+</html>
